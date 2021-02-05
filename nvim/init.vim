@@ -1,15 +1,14 @@
 syntax on
 
+set background=dark
 set cindent
 set expandtab
 set hidden
 set incsearch
-set incsearch
 set mouse=a
+set noshowmode
 set noswapfile
-set number
 set number relativenumber
-set relativenumber
 set scrolloff=4
 set shiftwidth=2
 set smartcase
@@ -18,7 +17,6 @@ set tabstop=2
 set termguicolors
 set title
 set updatetime=50
-set noshowmode
 
 call plug#begin('~/.config/vim/init.vim')
 " Vim editor 
@@ -30,14 +28,13 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'yuki-ycino/fzf-preview.vim'
-Plug 'vim-test/vim-test'
 
 " Language Plugins 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'elmcast/elm-vim'
 
 " Code Editor Specific
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-commentary'
@@ -51,29 +48,29 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'HerringtonDarkholme/yats.vim'
 call plug#end()
 
-let g:gruvbox_contrast_dark = 'hard'
+
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
 " Set Colour Theme
+" This needs to be here before setting the colorscheme to gruvbox 🤷
+let g:gruvbox_contrast_dark = 'hard'
+colorscheme gruvbox
+
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeIgnore = ['^node_modules$']
 let g:NERDTreeMinimalUI = 1
 let g:elm_format_autosave = 1
 let g:elm_setup_keybindings = 0
-let g:elm_syntastic_show_warnings = 1
 let g:import_sort_auto = 1
 let g:rehash256 = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
 let g:tsuquyomi_shortest_import_path = 1
 
 " coc config
 let g:coc_global_extensions = [
   \ 'coc-snippets',
-  \ 'coc-pairs',
   \ 'coc-tsserver',
   \ 'coc-eslint',
   \ 'coc-prettier',
@@ -83,9 +80,6 @@ let g:coc_global_extensions = [
 let g:lightline = {
       \ 'colorscheme': 'ayu_dark',
       \ }
-
-colorscheme gruvbox
-set background=dark
 
 nnoremap <SPACE> <Nop>
 let mapleader = " "
@@ -116,14 +110,6 @@ nmap <leader>gs :G<CR>
 " Shortcuts for navigating tabs
 nnoremap <leader>l gt
 nnoremap <leader>h gT
-"------------------------------"
-
-" #### VIM TEST MAPPINGS ####
-nmap <silent> <leader>tn :TestNearest<CR>
-nmap <silent> <leader>tf :TestFile<CR>
-nmap <silent> <leader>ts :TestSuite<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>tg :TestVisit<CR>
 "------------------------------"
 
 " Use <c-space> to trigger completion.
@@ -182,4 +168,3 @@ if has('patch8.1.1068')
 else
   imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
-syntax on
